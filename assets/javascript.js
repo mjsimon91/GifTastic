@@ -2,6 +2,7 @@ var animals =[];
 var searchGiphy;
 var queryURL;
 var animalImages;
+var animal;
 var a;
 
 //On page load
@@ -29,12 +30,13 @@ $(document).ready(function() {
       // Providing the button's text with a value of the animal at index i
       a.text(animals[i]);
       // Adding the button to the HTML
-      $("#animalSearchTerm").append(a);
+      $("#animalSearchTerms").append(a);
       console.log(animals);
+      console.log('animals array ' + animals);
     }
   }
 
-  searchGiphy = function(animal){
+  searchGiphy = function(searchTerm){
     queryURL = 'https://api.giphy.com/v1/gifs/search?q=' + animal + '&api_key=Tu8qUgRyzzyJnRNoUgJ6mAlHn03u67S6';
     $.ajax({
       url: queryURL,
@@ -45,7 +47,8 @@ $(document).ready(function() {
       animalImages = '<img src=' + response.data[i].images.fixed_width_small.url + ">";
       $(".animalsView").append(animalImages)
       }
-
+      console.log(animal);
+      console.log(queryURL);
       // $(".animalsView").append(animalGif())
     })
   }
@@ -55,9 +58,10 @@ $("#search").click(function(event){
   event.preventDefault();   //Prevents the screen from refreshing
 
   //trim what is searched tp prevent extra space
-  var animal = $("#searchTerm").val().trim()
+  animal = $("#searchTerm").val().trim()
   animals.push(animal);
   searchGiphy();
+  console.log('animal ' + animal);
   //Put a visul button on the screen representing their search
 
   renderButtons();
