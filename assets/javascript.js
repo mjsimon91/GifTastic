@@ -36,8 +36,9 @@ $(document).ready(function() {
     $(".animal").click(function(){
       event.preventDefault();   //Prevents the screen from refreshing
       //trim what is searched tp prevent extra space
-      var animal = $(".animal").text();
-      console.log(animal);
+      $(".animalsView").empty();
+      animal = $(this).attr("data-name");
+      searchGiphy();
 
 
 
@@ -48,7 +49,9 @@ $(document).ready(function() {
   //Perform a GET call to the Giphy API
 
   function searchGiphy(){
+
     queryURL = 'https://api.giphy.com/v1/gifs/search?q=' + animal + '&api_key=Tu8qUgRyzzyJnRNoUgJ6mAlHn03u67S6';
+
     $.ajax({
       url: queryURL,
       method: "GET"
@@ -59,9 +62,8 @@ $(document).ready(function() {
       $(".animalsView").append(animalImages);
       gifSearch.push(animalGif)
       $(animalSearch).append(gifSearch)
-      console.log(gifSearch);
       }
-
+        console.log(queryURL);
       // $(".animalsView").append(animalGif())
     });
   };
@@ -71,10 +73,11 @@ $("#search").on("click", function(event){
   event.preventDefault();   //Prevents the screen from refreshing
   $(".animalsView").empty();
   //trim what is searched tp prevent extra space
-  var animal = $("#searchTerm").val().trim();
+  animal = $("#searchTerm").val().trim();
   animals.push(animal);
   //display the results
   searchGiphy();
+
 
   //Put a visul button on the screen representing their search
 
