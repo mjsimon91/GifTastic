@@ -1,5 +1,4 @@
-var animals = new Object();
-var animal;
+var animals =[];
 var gifSearch =[];
 var queryURL;
 var animalImages;
@@ -24,30 +23,26 @@ $(document).ready(function() {
       // Adding a class
       a.addClass("animal");
       // Adding a data-attribute with a value of the animal at index i
-      a.attr("data-name", animals[i].search);
+      a.attr("data-name", animals[i]);
       //Adding a value to each button in order to call later on
       a.attr("id",[i]);
       // Providing the button's text with a value of the animal at index i
-      a.text(animals[i].search);
+      a.text(animals[i]);
 
       // Adding the button to the HTML
-      console.log('a ' + a);
 
       $("#animalSearchTerms").append(a);
     }
+    $(".animal").click(function(){
+      event.preventDefault();   //Prevents the screen from refreshing
+      //trim what is searched tp prevent extra space
+      var animal = $(".animal").text();
+      console.log(animal);
 
-    //Tracking the click event on a button. Select the correct object and the corresponding GIF array
-    // $(".animal").click(function(){
-    //   event.preventDefault();   //Prevents the screen from refreshing
-    //   //trim what is searched tp prevent extra space
-    //   for (var i = 0; i < animals.length; i++) {
-    //     if ((".animal").text() == animals[i].search) {
-    //       var animalButton = animals[i].gifs;
-    //       animalImages = '<img src=' + animalButton + ">";
-    //       $(".animalsView").append(animalImages);
-    //     }
-    //   }
-    // });
+
+
+      //display the results
+    });
   }
 
   //Perform a GET call to the Giphy API
@@ -63,6 +58,8 @@ $(document).ready(function() {
       animalImages = '<img src=' + animalGif + ">";
       $(".animalsView").append(animalImages);
       gifSearch.push(animalGif)
+      $(animalSearch).append(gifSearch)
+      console.log(gifSearch);
       }
 
       // $(".animalsView").append(animalGif())
@@ -74,16 +71,14 @@ $("#search").on("click", function(event){
   event.preventDefault();   //Prevents the screen from refreshing
   $(".animalsView").empty();
   //trim what is searched tp prevent extra space
-  animal = $("#searchTerm").val().trim();
-
+  var animal = $("#searchTerm").val().trim();
+  animals.push(animal);
   //display the results
   searchGiphy();
-  renderButtons();
-  animals.gifs = gifSearch;
-  animals.search = animal;
-  console.log(animals);
+
   //Put a visul button on the screen representing their search
 
+  renderButtons();
 })
 
 //When a user clicks on a button, display the related gifs
