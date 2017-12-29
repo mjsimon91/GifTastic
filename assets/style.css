@@ -6,18 +6,6 @@ header h1 {
   text-align: center;
 }
 
-.searchBox{
-  margin-top: 5px;
-}
-
-.searchButton {
-  margin-left: 3px;
-}
-
-.title {
-  text-align: center;
-}
-
 .animal {
   margin: 10px;
 }
@@ -29,3 +17,16 @@ header h1 {
 .gifTitle {
   text-align: center;
 }
+
+/* Extra small devices (portrait phones, less than 576px)*/
+
+@media (max-width: 575.99px) {
+  .searchIcon {
+    margin: auto;
+    width: 50%;
+  }
+  .initialPhoto{
+    
+  }
+
+ }

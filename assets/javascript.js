@@ -12,7 +12,6 @@ var gifRating;
 $(document).ready(function() {
 
 
-
 //Render the screen to just show the search bar on page load
   function renderButtons(){
     $("#animalSearchTerms").empty();
@@ -95,6 +94,7 @@ $("#search").on("click", function(event){
   //trim what is searched tp prevent extra space
   animal = $("#searchTerm").val().trim();
   animals.push(animal);
+  console.log(animal);
   //display the results
   searchGiphy();
 
