@@ -91,6 +91,7 @@ $(document).ready(function() {
 $("#search").on("click", function(event){
   event.preventDefault();   //Prevents the screen from refreshing
   $(".animalsView").empty();
+  $(".babyAnimalCarousel").empty();
   //trim what is searched tp prevent extra space
   animal = $("#searchTerm").val().trim();
   animals.push(animal);

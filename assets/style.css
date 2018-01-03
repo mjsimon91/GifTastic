@@ -19,6 +19,9 @@ header h1 {
 }
 
 /* Extra small devices (portrait phones, less than 576px)*/
+.babyAnimalGif {
+  height: 600px;
+}
 
 @media (max-width: 575.99px) {
   .searchIcon {
@@ -26,7 +29,7 @@ header h1 {
     width: 50%;
   }
   .initialPhoto{
-    
+
   }
 
  }
