@@ -7,6 +7,8 @@ var a;
 var animalSearch = [];
 var gifTitle;
 var gifRating;
+var cardDiv;
+var gifDiv;
 
 //On page load
 $(document).ready(function() {
@@ -59,33 +61,59 @@ $(document).ready(function() {
       method: "GET"
     }).done(function(response){
       for (var i = 0; i < response.data.length; i++) {
-      animalGif = response.data[i].images.looping.mp4;
+      animalAnimate = response.data[i].images.original.url;
+      animalStill = response.data[i].images.fixed_height_still.url;
       gifTitle = response.data[i].title;
       gifRating = response.data[i].rating;
 
       //add the mp4 to the HTML
 
-      animalImages =
-        '<div class ="col-lg-3 col-md-3 col-sm-6 col-12 animalGiphy">' +
-          '<video controls loop class="card-img-top">' +
-           '<source src= "' + animalGif + '"type="video/mp4">' +
-           '</video>' +
-          '<div class="card-footer">' +
-            '<h5 class="card-title gifTitle">' + gifTitle + '</h5>' +
-            '<small class="text-muted"> Rating:' + gifRating + '</small>' +
-          '</div>' +
-        '</div>'
+      gifDiv = $('<div>');
+      gifDiv.addClass("col-lg-3 col-md-3 col-sm-6 col-12 animalGif")
+      cardFooter = $('<div class="card-footer">');
 
 
-      $(".animalsView").append(animalImages);
+      var cardHeader = $('<h5>');
+      cardHeader.addClass("card-title gifTitle")
+      cardHeader.text(gifTitle);
 
-      gifSearch.push(animalGif)
-      $(animalSearch).append(gifSearch)
+      var cardRating = $('<small>');
+      cardRating.addClass("text-muted")
+      cardRating.text('Rating ' + gifRating);
+
+      cardFooter.append(cardHeader);
+      cardFooter.append(cardRating);
+
+      animalImages = $("<img>");
+      animalImages.addClass('animalGiphy card-img-top')
+      animalImages.attr("src", animalStill);
+      animalImages.attr("data-animate",animalAnimate);
+      animalImages.attr("data-still", animalStill);
+      animalImages.attr("data-state", "Still");
+
+      gifDiv.append(animalImages);
+      gifDiv.append(cardFooter);
+
+
+      $(".animalsView").append(gifDiv);
+
+      gifSearch.push(animalAnimate);
+      $(animalSearch).append(gifSearch);
       }
         console.log(queryURL);
       // $(".animalsView").append(animalGif())
+      $(".animalGiphy").on("click", function(event){
+        if ($(this).attr("data-state") == "Still") {
+          console.log($(this).attr("src"));
+          $(this).attr("src", $(this).attr("data-animate"))
+          $(this).attr("data-state", "Animated")
+        } else {
+          $(this).attr("src", $(this).attr("data-still"))
+          $(this).attr("data-state", "Still")
+        }
+      })
     });
-  };
+  }
 
 //When a user searches, add the search to the animals array
 $("#search").on("click", function(event){
@@ -93,19 +121,17 @@ $("#search").on("click", function(event){
   $(".animalsView").empty();
   $(".babyAnimalCarousel").empty();
   //trim what is searched tp prevent extra space
-  animal = $("#searchTerm").val().trim();
+  animal = $("#searchTerm").val().trim()
   animals.push(animal);
   console.log(animal);
   //display the results
   searchGiphy();
 
 
-  //Put a visul button on the screen representing their search
+  //Put a visul button on the screen representing their search if they have not searched this term before
 
   renderButtons();
-})
-
-//When a user clicks on a button, display the related gifs
+});
 
 
 
