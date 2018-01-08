@@ -44,6 +44,7 @@ $(document).ready(function() {
       event.preventDefault();   //Prevents the screen from refreshing
       $(".animalsView").empty();
       animal = $(this).attr("data-name");
+      mixpanel.track("Button Click",{'Button Name': animal});
       searchGiphy();
 
 
@@ -102,7 +103,7 @@ $(document).ready(function() {
       gifSearch.push(animalAnimate);
       $(animalSearch).append(gifSearch);
       }
-        console.log(queryURL);
+
       // $(".animalsView").append(animalGif())
       $(".animalGiphy").on("click", function(event){
         if ($(this).attr("data-state") == "Still") {
@@ -142,8 +143,6 @@ $("#search").on("click", function(event){
   renderButtons();
   searchGiphy();
 
-
-  console.log(animal);
   //display the results
 
 
