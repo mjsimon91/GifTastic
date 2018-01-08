@@ -106,12 +106,16 @@ $(document).ready(function() {
       // $(".animalsView").append(animalGif())
       $(".animalGiphy").on("click", function(event){
         if ($(this).attr("data-state") == "Still") {
-          console.log($(this).attr("src"));
+
           $(this).attr("src", $(this).attr("data-animate"))
           $(this).attr("data-state", "Animated")
+          mixpanel.track("Play", {'Gif Title': gifTitle, 'Gif URL':animalAnimate, 'rating':gifRating})
         } else {
           $(this).attr("src", $(this).attr("data-still"))
           $(this).attr("data-state", "Still")
+          mixpanel.track("Pause", {'Gif Title': gifTitle, "Animal Still": animalStill, 'rating':gifRating})
+
+
         }
       })
     });
@@ -131,6 +135,8 @@ $("#search").on("click", function(event){
       return;
     }
   }
+
+  mixpanel.track('Search', {'Search Term': animal});
 
   animals.push(animal);
   renderButtons();
