@@ -34,6 +34,8 @@ $(document).ready(function() {
       // Providing the button's text with a value of the animal at index i
       a.text(animals[i]);
 
+      var b = $("<img>")
+
       // Adding the button to the HTML
 
       $("#animalSearchTerms").append(a);
@@ -122,15 +124,26 @@ $("#search").on("click", function(event){
   $(".babyAnimalCarousel").empty();
   //trim what is searched tp prevent extra space
   animal = $("#searchTerm").val().trim()
+
+  for (var i = 0; i < animals.length; i++) {
+    if (animal == animals[i]) {
+      searchGiphy();
+      return;
+    }
+  }
+
   animals.push(animal);
+  renderButtons();
+  searchGiphy();
+
+
   console.log(animal);
   //display the results
-  searchGiphy();
 
 
   //Put a visul button on the screen representing their search if they have not searched this term before
 
-  renderButtons();
+
 });
 
 
